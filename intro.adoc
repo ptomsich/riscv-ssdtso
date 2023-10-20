@@ -1,7 +1,7 @@
 [[intro]]
 == Introduction
 
-The Sstdso extension standardises a mechanism that allows system software to dynamically switch individual harts between RVWMO and RVTSO semantics.
+The Sstdso extension standardises a mechanism that allows privileged system software to dynamically switch individual harts between RVWMO and RVTSO semantics for software running at lower privilege levels.
 
 This mechanism is intended for systems that:
 
@@ -9,24 +9,29 @@ This mechanism is intended for systems that:
 * can dynamically switch the U, VS, and VU execution on harts between RVWMO and RVTSO semantics,
 * natively prefer (e.g., for performance reasons) to operate with RVWMO semantics.
 
+In a nutshell, the Sstdso extension introduces a dynamic-RVTSO mode and allows privileged software to select the behaviour of load and store operations executing at a lower privilege level: when switched to dynamic RVTSO, all load, store, and AMO operations behave as in RVTSO.
+
 === Interoperability between RVTSO and RVWMO
 
 RVTSO makes the following adjustments to RVWMO:
 
 * All load operations behave as if they have an acquire-RCpc annotation.
 * All store operations behave as if they have a release-RCpc annotation.
-* All AMOs behave as if they have both acquire-RCsc and release-RCsc annotations.
+* All AMOs operations behave as if they have both acquire-RCsc and release-RCsc annotations.
 
 This makes all rules for preserved program order redundant, except those for explicit synchronization.
 
-For the interoperability between code concurrently executing under RVTSO and RVWMO rules (on separate harts), we can therefore assume correct interoperability without any special precautions if the processes use explicit synchronization primitives (and RCpc annotations for the processes executing under RVWMO semantics) as required for their respective memory consistency models.
+For the interoperability between code (from different processes) concurrently executing under RVTSO and RVWMO rules (on separate harts), we can therefore assume correct interoperability without any special precautions if the processes use explicit synchronization primitives (and RCpc annotations for the processes executing under RVWMO semantics) as required for their respective memory consistency models.
+
+Ssdtso assumes that the privileged software controlling the dynamic-RVTSO behaviour is developed for RVWMO and will use explicit acquire-RCpc/release-RCpc annotations as required.
 
 === Suitability for the Fast-Track Extension Process
 
 This proposed extension meets the Fast Track criteria:
 
 * it is self-contained with a programming-model consisting of bit-assignments in CSRs,
-* it provides a mechanism that will be used by privileged-level software only
+* it provides a mechanism that will be used by privileged-level software only (i.e., has limited impact),
+* it does not modify or extend the memory model,
 * it composes with the existing RISC-V instruction set, and
 * it is not expected to be contentious.
 
