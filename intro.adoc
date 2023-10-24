@@ -13,13 +13,13 @@ In a nutshell, the Sstdso extension introduces a dynamic-RVTSO mode and allows p
 
 === Interoperability between RVTSO and RVWMO
 
-RVTSO makes the following adjustments to RVWMO:
+RVTSO (whether statically selected or dynamically enabled) makes the following adjustments to RVWMO:
 
 * All load operations behave as if they have an acquire-RCpc annotation.
 * All store operations behave as if they have a release-RCpc annotation.
 * All AMOs operations behave as if they have both acquire-RCsc and release-RCsc annotations.
 
-This makes all rules for preserved program order redundant, except those for explicit synchronization.
+This renders all rules. except those for explicit synchronization, for preserved program order (as defined in "17.1.3. Preserved Program Order" of "The RISC-V Instruction Set Manual: Volume I") redundant.
 
 For the interoperability between code (from different processes) concurrently executing under RVTSO and RVWMO rules (on separate harts), we can therefore assume correct interoperability without any special precautions if the processes use explicit synchronization primitives (and RCpc annotations for the processes executing under RVWMO semantics) as required for their respective memory consistency models.
 
