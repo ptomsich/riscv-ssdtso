@@ -60,8 +60,8 @@ include::contributors.adoc[]
 
 include::intro.adoc[]
 include::ssdtso.adoc[]
-#include::chapter2.adoc[]
+// include::chapter2.adoc[]
 
 // The index must precede the bibliography
-include::index.adoc[]
-include::bibliography.adoc[]
+// include::index.adoc[]
+// include::bibliography.adoc[]
