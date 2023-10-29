@@ -5,8 +5,8 @@ The Sstdso extension standardises a mechanism that allows privileged system soft
 
 This mechanism is intended for systems that:
 
-* want to provide RVTSO semantics for individual user-space processes or virtualized guest operating systems,
-* can dynamically switch the U, VS, and VU execution on harts between RVWMO and RVTSO semantics,
+* want to provide RVTSO semantics for individual user-space processes, for a TSO-only operating system, or for a virtualized guest operating systems,
+* can dynamically switch the S/HS, U, VS, and VU execution on harts between RVWMO and RVTSO semantics,
 * natively prefer (e.g., for performance reasons) to operate with RVWMO semantics.
 
 In a nutshell, the Sstdso extension introduces a dynamic-RVTSO mode and allows privileged software to select the behaviour of load and store operations executing at a lower privilege level: when switched to dynamic RVTSO, all load, store, and AMO operations behave as in RVTSO.

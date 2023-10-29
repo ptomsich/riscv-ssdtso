@@ -58,6 +58,7 @@ Copyright 2023 by RISC-V International.
 [preface]
 include::contributors.adoc[]
 
+include::changes.adoc[]
 include::intro.adoc[]
 include::ssdtso.adoc[]
 // include::chapter2.adoc[]
